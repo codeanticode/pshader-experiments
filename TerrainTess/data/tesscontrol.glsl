@@ -2,6 +2,8 @@
 
 layout(vertices = 3) out;
 
+#define id gl_InvocationID
+
 uniform mat4 transformMatrix;
 uniform vec2 resolution;
 uniform float lodFactor;
@@ -45,8 +47,6 @@ float level(vec2 v0, vec2 v1) {
 }
 
 void main() {
-  int id = gl_InvocationID; 
-  
   // IMPORTANT: even though the elements of tcData and vData are of the same 
   // type, VertexData in this case, they cannot be assigned directly one into
   // the other:
