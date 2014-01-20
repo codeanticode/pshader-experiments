@@ -56,7 +56,7 @@ class TessellationShader extends PShader {
   }
 
   protected void draw(int idxId, int count, int offset) {
-    GL4 gl4 = PJOGL.gl.getGL4();
+    GL4 gl4 = ((PJOGL)pgl).gl.getGL4();
     gl4.glPatchParameteri(GL4.GL_PATCH_VERTICES, 3);      
     pgl.bindBuffer(PGL.ELEMENT_ARRAY_BUFFER, idxId);
     pgl.drawElements(GL4.GL_PATCHES, count, GL.GL_UNSIGNED_SHORT, 
