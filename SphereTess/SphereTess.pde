@@ -20,7 +20,7 @@ float tessLevelInner = 3;
 float tessLevelOuter = 2;  
 boolean useTess = true;
 
-public void setup() {
+void setup() {
   size(400, 400, P3D);
 
   ico = createIcosahedron();
@@ -35,7 +35,7 @@ public void setup() {
   shader(tessellator);
 }
 
-public void draw() {
+void draw() {
   background(0);  
 
   pointLight(0, 204, 204, 0, 0, 200);
@@ -48,7 +48,7 @@ public void draw() {
   shape(ico);
 }
 
-public void keyPressed() {
+void keyPressed() {
   if (key == CODED) {
     if (keyCode == UP) {
       tessLevelInner++;

@@ -20,8 +20,8 @@ PShape grid;
 Scene scene;
 
 void setup() { 
-//  size(640, 360, P3D);
-  size(displayWidth, displayHeight, P3D);
+  size(640, 360, P3D);
+//  size(displayWidth, displayHeight, P3D);
   heightMap = loadImage("goodmountains.jpg");
 
   scene = new Scene(this);

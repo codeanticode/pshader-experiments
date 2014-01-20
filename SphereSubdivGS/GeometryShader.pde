@@ -9,7 +9,7 @@ class GeometryShader extends PShader {
 
   // Setup the geometry shader (fragment and vertex shaders are automatically handled in 
   // by the PShader superclass).
-  protected void setup() {
+  void setup() {
     glGeometry = pgl.createShader(GL3.GL_GEOMETRY_SHADER);
     pgl.shaderSource(glGeometry, geometrySource);
     pgl.compileShader(glGeometry);

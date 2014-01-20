@@ -17,7 +17,7 @@ class TessellationShader extends PShader {
     geometrySource = PApplet.join(parent.loadStrings(geoFilename), "\n");
   }
 
-  protected void setup() {
+  void setup() {
     boolean compiled;
 
     glTessControl = pgl.createShader(GL4.GL_TESS_CONTROL_SHADER);
@@ -55,7 +55,7 @@ class TessellationShader extends PShader {
     pgl.attachShader(glProgram, glGeometry);
   }
 
-  protected void draw(int idxId, int count, int offset) {
+  void draw(int idxId, int count, int offset) {
     GL4 gl4 = ((PJOGL)pgl).gl.getGL4();
     gl4.glPatchParameteri(GL4.GL_PATCH_VERTICES, 3);      
     pgl.bindBuffer(PGL.ELEMENT_ARRAY_BUFFER, idxId);
