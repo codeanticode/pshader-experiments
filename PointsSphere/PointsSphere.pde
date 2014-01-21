@@ -1,4 +1,5 @@
 // Issue 11: https://github.com/processing/processing/issues/11
+import processing.glw.*;
  
 import processing.opengl.PGraphicsOpenGL;
 import javax.media.opengl.GL2;
@@ -23,9 +24,12 @@ Texture particleImg, ringImg;
 Geodesic rt;
 Point3d[] rts;
 boolean growcomplete = false;
-int radius = 30;
-int nodecount = 30252;
-float pointSize = 200;
+//int radius = 30;
+int radius = 15;
+//int nodecount = 30252;
+int nodecount = 30252 * 2;
+//float pointSize = 200;
+float pointSize = 400;
 PShape skybox;
 PShape lines;
 
@@ -34,16 +38,25 @@ boolean showpoints = true;
 boolean showlines = false;
 boolean showfps = false;
 
+PGraphics pg;
+
 void setup() {
-  size(1000, 800, OPENGL);
+  size(100, 100, GLW.RENDERER);
+  pg = createGraphics(2560, 1440, GLW.P3D);
+  pg.beginDraw();
+  pg.hint(DISABLE_DEPTH_TEST);
+  pg.endDraw();
+  GLW.createWindow(pg);
   
-  hint(DISABLE_DEPTH_TEST);
   
+  
+  pg.beginDraw();
   float fov = PI/3.0;
-  float cameraZ = (height/2.0) / tan(fov/2.0);
-  perspective(fov, (float(width)/float(height)), cameraZ/10.0, cameraZ*500);
-  float distance = nodecount/11;
-  camera(distance, distance, distance / tan(PI*30.0 / 180.0), width/2.0, height/2.0, 0, 0, 1, 0);
+  float cameraZ = (pg.height/2.0) / tan(fov/2.0);
+  pg.perspective(fov, (float(pg.width)/float(pg.height)), cameraZ/10.0, cameraZ*500);
+  //float distance = nodecount/11;
+  float distance = nodecount/15;
+  pg.camera(distance, distance, distance / tan(PI*30.0 / 180.0), pg.width/2.0, pg.height/2.0, 0, 0, 1, 0);
   
   rt = new Geodesic(nodecount);
   rts = rt.getPointList();
@@ -51,7 +64,7 @@ void setup() {
   loadSkybox(skyboxName, ".png");  
   skybox = createTexturedCube();  
 
-  PJOGL pgl = (PJOGL) beginPGL();
+  PJOGL pgl = (PJOGL)pg.beginPGL();
   gl = pgl.gl.getGL2();
   initShaders(gl);
   initNodes(gl);
@@ -72,27 +85,29 @@ void setup() {
   gl.glPointParameterf(GL2.GL_POINT_SIZE_MIN, 0.0f );
   gl.glPointParameterf( GL2.GL_POINT_FADE_THRESHOLD_SIZE, 60.0f );
   gl.glTexEnvi(GL2.GL_POINT_SPRITE, GL2.GL_COORD_REPLACE, GL2.GL_TRUE);
-  gl.glEnable( GL2.GL_BLEND );
-  endPGL();
+  gl.glEnable(GL2.GL_BLEND);
+  pg.endPGL();
+  pg.endDraw();
 }
 
 float rtx = 0;
 void draw() {
-  background(0);
+  pg.beginDraw();  
+  pg.background(0);
   if (frameCount % 30 == 0 && showfps) {
     println(frameRate);
   }
 
-  translate(width/2, height/2, 50);
+  pg.translate(pg.width/2, pg.height/2, 50);
   rtx += .003;
-  rotateY(rtx);
+  pg.rotateY(rtx);
   
   if (showskybox) {
-    shape(skybox);
+    pg.shape(skybox);
   }
   
   if (showpoints) {
-    PJOGL pgl = (PJOGL) beginPGL();
+    PJOGL pgl = (PJOGL)pg.beginPGL();
     gl = pgl.gl.getGL2();
   
     gl.glBlendFunc(GL2.GL_SRC_ALPHA, GL2.GL_ONE);
@@ -137,11 +152,11 @@ void draw() {
 
     gl.glBlendFunc(GL2.GL_SRC_ALPHA, GL2.GL_ONE_MINUS_SRC_ALPHA);
     
-    endPGL();
+    pg.endPGL();
   }
 
   if (showlines && lines != null) {
-    shape(lines);
+    pg.shape(lines);
   }
   if (!growcomplete) {
     Vector3d ps1 = new Vector3d(rts[0]);
@@ -158,6 +173,7 @@ void draw() {
       lines = createLines();
     }
   }
+  pg.endDraw();
 }
 
 public void keyPressed() {
