@@ -28,7 +28,7 @@ void loadSkybox(String skyboxName, String fExt)
 // Assign six texture to the six cube faces
 PShape createTexturedCube() 
 {
-  PShape sky = createShape(GROUP); 
+  PShape sky = pg.createShape(GROUP); 
   sky.addChild(texturedCubeSide (P100, P000, P010, P110, tex1));   // -Z "front" face
   sky.addChild(texturedCubeSide (P001, P101, P111, P011, tex2));   // +Z "back" face
   sky.addChild(texturedCubeSide (P000, P001, P011, P010, tex3));   // -X "left" face
@@ -42,7 +42,7 @@ PShape createTexturedCube()
 //void TexturedCubeSide(PVector P1, PVector P2, PVector P3, PVector P4, Texture tex)
 PShape texturedCubeSide(PVector P1, PVector P2, PVector P3, PVector P4, PImage tex)
 {
-  PShape sh = createShape();
+  PShape sh = pg.createShape();
   sh.beginShape(QUADS);
   sh.textureMode(NORMAL);
   sh.noStroke();
@@ -56,7 +56,7 @@ PShape texturedCubeSide(PVector P1, PVector P2, PVector P3, PVector P4, PImage t
 }
 
 PShape createLines() {
-  PShape lines = createShape();
+  PShape lines = pg.createShape();
   lines.beginShape(LINES);
   lines.strokeWeight(2);
   lines.stroke(255, 255, 255, 20);       
