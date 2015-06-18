@@ -6,12 +6,11 @@
 // Press '1' to move camera along path
 
 import remixlab.proscene.*;
+import remixlab.dandelion.geom.*;
   
-import javax.media.opengl.GL;
-import javax.media.opengl.GL3;
-import javax.media.opengl.GL4;
-
-{ PJOGL.PROFILE = 4; }
+import com.jogamp.opengl.GL; //<>//
+import com.jogamp.opengl.GL3;
+import com.jogamp.opengl.GL4;
 
 PImage heightMap;
 GL4Shader terrainShader;
@@ -19,8 +18,12 @@ GL4Shader edgesShader;
 PShape grid;
 Scene scene;
 
-void setup() { 
+void settings() {
   size(640, 360, P3D);
+  PJOGL.profile = 4;
+}
+
+void setup() { 
 //  size(displayWidth, displayHeight, P3D);
   heightMap = loadImage("goodmountains.jpg");
 
@@ -58,23 +61,23 @@ void keyPressed() {
 }
 
 void setupCameraPath() {
-  scene.camera().setUpVector(new PVector(0, 0, -1), false);  
-  scene.camera().setPosition(new PVector(0, 120, 50));
+  scene.camera().setUpVector(new Vec(0, 0, -1), false);  
+  scene.camera().setPosition(new Vec(0, 120, 50));
   scene.camera().lookAt(scene.camera().sceneCenter());
   scene.camera().addKeyFrameToPath(1);
 
-  scene.camera().setUpVector(new PVector(0, 0, -1), false);
-  scene.camera().setPosition(new PVector(0, 60, 10));
+  scene.camera().setUpVector(new Vec(0, 0, -1), false);
+  scene.camera().setPosition(new Vec(0, 60, 10));
   scene.camera().lookAt(scene.camera().sceneCenter());
   scene.camera().addKeyFrameToPath(1);
 
-  scene.camera().setUpVector(new PVector(0, 0, -1), false);
-  scene.camera().setPosition(new PVector(0, -60, 10));
+  scene.camera().setUpVector(new Vec(0, 0, -1), false);
+  scene.camera().setPosition(new Vec(0, -60, 10));
   scene.camera().lookAt(scene.camera().sceneCenter());
   scene.camera().addKeyFrameToPath(1);
 
-  scene.camera().setUpVector(new PVector(0, 0, -1), false);
-  scene.camera().setPosition(new PVector(0, -120, 50));
+  scene.camera().setUpVector(new Vec(0, 0, -1), false);
+  scene.camera().setPosition(new Vec(0, -120, 50));
   scene.camera().lookAt(scene.camera().sceneCenter());
   scene.camera().addKeyFrameToPath(1);
 }  

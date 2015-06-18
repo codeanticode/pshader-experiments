@@ -1,8 +1,4 @@
-// Issue 11: https://github.com/processing/processing/issues/11
-import processing.glw.*;
- 
-import processing.opengl.PGraphicsOpenGL;
-import javax.media.opengl.GL2;
+import com.jogamp.opengl.GL2;
 import javax.vecmath.Point3d;
 import javax.vecmath.Vector3d;
 import java.lang.Math;
@@ -41,22 +37,15 @@ boolean showfps = false;
 PGraphics pg;
 
 void setup() {
-  size(100, 100, GLW.RENDERER);
-  pg = createGraphics(2560, 1440, GLW.P3D);
-  pg.beginDraw();
-  pg.hint(DISABLE_DEPTH_TEST);
-  pg.endDraw();
-  GLW.createWindow(pg);
+  fullScreen(P3D);
+  hint(DISABLE_DEPTH_TEST);
   
-  
-  
-  pg.beginDraw();
   float fov = PI/3.0;
   float cameraZ = (pg.height/2.0) / tan(fov/2.0);
-  pg.perspective(fov, (float(pg.width)/float(pg.height)), cameraZ/10.0, cameraZ*500);
+  perspective(fov, (float(pg.width)/float(pg.height)), cameraZ/10.0, cameraZ*500);
   //float distance = nodecount/11;
   float distance = nodecount/15;
-  pg.camera(distance, distance, distance / tan(PI*30.0 / 180.0), pg.width/2.0, pg.height/2.0, 0, 0, 1, 0);
+  camera(distance, distance, distance / tan(PI*30.0 / 180.0), pg.width/2.0, pg.height/2.0, 0, 0, 1, 0);
   
   rt = new Geodesic(nodecount);
   rts = rt.getPointList();
@@ -64,7 +53,7 @@ void setup() {
   loadSkybox(skyboxName, ".png");  
   skybox = createTexturedCube();  
 
-  PJOGL pgl = (PJOGL)pg.beginPGL();
+  PJOGL pgl = (PJOGL)beginPGL();
   gl = pgl.gl.getGL2();
   initShaders(gl);
   initNodes(gl);
@@ -192,4 +181,3 @@ public void keyPressed() {
     }
   } 
 }
-

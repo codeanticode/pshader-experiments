@@ -35,12 +35,12 @@ void setup() {
   cloudShader.set("texMap", cloudTex);
   cloudShader.set("alphaMap", alphaTex);
   
-  earth = createShape(SPHERE, 200, 32, 32);
+  earth = createShape(SPHERE, 200);
   earth.setStroke(false);
   earth.setSpecular(color(125));
   earth.setShininess(10);
   
-  clouds = createShape(SPHERE, 201, 32, 32);
+  clouds = createShape(SPHERE, 201);
   clouds.setStroke(false);  
 }
 

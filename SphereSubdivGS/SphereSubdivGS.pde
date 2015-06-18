@@ -10,8 +10,7 @@
 // * geometry culling
 // http://renderingwonders.wordpress.com/2011/02/07/chapter-11-%E2%80%93-advanced-shader-usage-geometry-shaders/
 
-import javax.media.opengl.GL3;
-{ PJOGL.PROFILE = 3; }
+import com.jogamp.opengl.GL3;
 
 PShape octa;
 PShader simple;
@@ -20,8 +19,13 @@ PShader showNormals;
 float angle;
 boolean useSubdiv = true;
 
-void setup() {
+void settings() {
   size(400, 400, P3D);
+  PJOGL.profile = 3;
+}
+
+void setup() {
+  
 
   octa = createOctahedron();
 
@@ -59,4 +63,3 @@ void mouseMoved() {
   subdiv.set("level", int(map(mouseX, 0, width, 0, 4)));
   showNormals.set("level", int(map(mouseX, 0, width, 0, 4)));
 }  
-

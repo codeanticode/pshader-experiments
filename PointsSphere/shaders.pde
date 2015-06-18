@@ -15,7 +15,7 @@ class GLSLshader
   GLSLshader(GL2 gl0)
   {
     gl = gl0;
-    programObject = gl.glCreateProgramObjectARB();
+    programObject = (int)gl.glCreateProgramObjectARB();
     vertexShader = -1;
     fragmentShader = -1;
   }
@@ -23,7 +23,7 @@ class GLSLshader
   void loadVertexShader(String file)
   {
     String shaderSource = join(loadStrings(file), "\n");
-    vertexShader = gl.glCreateShaderObjectARB(GL2.GL_VERTEX_SHADER);
+    vertexShader = (int)gl.glCreateShaderObjectARB(GL2.GL_VERTEX_SHADER);
     gl.glShaderSourceARB(vertexShader, 1, new String[] {
       shaderSource
     }
@@ -36,13 +36,13 @@ class GLSLshader
   void loadFragmentShader(String file)
   {
     String shaderSource = join(loadStrings(file), "\n");
-    fragmentShader = gl.glCreateShaderObjectARB(GL2.GL_FRAGMENT_SHADER);
+    fragmentShader = (int)gl.glCreateShaderObjectARB(GL2.GL_FRAGMENT_SHADER);
     gl.glShaderSourceARB(fragmentShader, 1, new String[] {
       shaderSource
     }
     , (int[]) null, 0);
     gl.glCompileShaderARB(fragmentShader);
-    checkLogInfo(gl, fragmentShader);
+    checkLogInfo(gl, (int)fragmentShader);
     gl.glAttachObjectARB(programObject, fragmentShader);
   }
 
@@ -93,4 +93,3 @@ class GLSLshader
     println("GLSL Validation: \n" + new String(infoBytes));
   }
 }
-

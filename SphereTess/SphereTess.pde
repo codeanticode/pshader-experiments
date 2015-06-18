@@ -8,10 +8,9 @@
 // Use left/right cursor keys to control outer tessellation level
 // Use up/down cursor keys to control inner tessellation level
 
-import javax.media.opengl.GL;
-import javax.media.opengl.GL3;
-import javax.media.opengl.GL4;
-{ PJOGL.PROFILE = 4; }
+import com.jogamp.opengl.GL;
+import com.jogamp.opengl.GL3;
+import com.jogamp.opengl.GL4;
 
 PShape ico;
 PShader tessellator;
@@ -20,9 +19,12 @@ float tessLevelInner = 3;
 float tessLevelOuter = 2;  
 boolean useTess = true;
 
-void setup() {
+void settings() {
   size(400, 400, P3D);
+  PJOGL.profile = 4;
+}
 
+void setup() {
   ico = createIcosahedron();
 
   tessellator = new TessellationShader(this, "GeodesicVert.glsl", 
@@ -69,4 +71,3 @@ void keyPressed() {
     else resetShader();
   }
 }
-
