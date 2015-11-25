@@ -38,13 +38,13 @@ void setup() {
 }
 
 void draw() {
-  background(0);  
+  background(157);  
 
   pointLight(0, 204, 204, 0, 0, 200);
 
   translate(width/2, height/2, 0);
 
-  scale(100);
+  scale(120);
   angle += 0.01;
   rotateY(angle);  
   shape(ico);

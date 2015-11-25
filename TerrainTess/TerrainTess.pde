@@ -51,8 +51,6 @@ void draw() {
     shader(edgesShader);
     shape(grid);
   }
-  
-  println(frameRate);  
 }  
 
 void keyPressed() {
