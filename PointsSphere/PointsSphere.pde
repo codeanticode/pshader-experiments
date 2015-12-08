@@ -34,18 +34,22 @@ boolean showpoints = true;
 boolean showlines = false;
 boolean showfps = false;
 
-PGraphics pg;
+//PGraphics pg;
+
+void settings() {
+  fullScreen(P3D);
+  PJOGL.profile = 1;
+}
 
 void setup() {
-  fullScreen(P3D);
   hint(DISABLE_DEPTH_TEST);
   
   float fov = PI/3.0;
-  float cameraZ = (pg.height/2.0) / tan(fov/2.0);
-  perspective(fov, (float(pg.width)/float(pg.height)), cameraZ/10.0, cameraZ*500);
+  float cameraZ = (height/2.0) / tan(fov/2.0);
+  perspective(fov, (float(width)/float(height)), cameraZ/10.0, cameraZ*500);
   //float distance = nodecount/11;
   float distance = nodecount/15;
-  camera(distance, distance, distance / tan(PI*30.0 / 180.0), pg.width/2.0, pg.height/2.0, 0, 0, 1, 0);
+  camera(distance, distance, distance / tan(PI*30.0 / 180.0), width/2.0, height/2.0, 0, 0, 1, 0);
   
   rt = new Geodesic(nodecount);
   rts = rt.getPointList();
@@ -75,28 +79,26 @@ void setup() {
   gl.glPointParameterf( GL2.GL_POINT_FADE_THRESHOLD_SIZE, 60.0f );
   gl.glTexEnvi(GL2.GL_POINT_SPRITE, GL2.GL_COORD_REPLACE, GL2.GL_TRUE);
   gl.glEnable(GL2.GL_BLEND);
-  pg.endPGL();
-  pg.endDraw();
+  endPGL();
 }
 
 float rtx = 0;
 void draw() {
-  pg.beginDraw();  
-  pg.background(0);
+  background(0);
   if (frameCount % 30 == 0 && showfps) {
     println(frameRate);
   }
 
-  pg.translate(pg.width/2, pg.height/2, 50);
+  translate(width/2, height/2, 50);
   rtx += .003;
-  pg.rotateY(rtx);
+  rotateY(rtx);
   
   if (showskybox) {
-    pg.shape(skybox);
+    shape(skybox);
   }
   
   if (showpoints) {
-    PJOGL pgl = (PJOGL)pg.beginPGL();
+    PJOGL pgl = (PJOGL)beginPGL();
     gl = pgl.gl.getGL2();
   
     gl.glBlendFunc(GL2.GL_SRC_ALPHA, GL2.GL_ONE);
@@ -141,11 +143,11 @@ void draw() {
 
     gl.glBlendFunc(GL2.GL_SRC_ALPHA, GL2.GL_ONE_MINUS_SRC_ALPHA);
     
-    pg.endPGL();
+    endPGL();
   }
 
   if (showlines && lines != null) {
-    pg.shape(lines);
+    shape(lines);
   }
   if (!growcomplete) {
     Vector3d ps1 = new Vector3d(rts[0]);
@@ -162,7 +164,6 @@ void draw() {
       lines = createLines();
     }
   }
-  pg.endDraw();
 }
 
 public void keyPressed() {
