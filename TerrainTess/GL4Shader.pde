@@ -48,7 +48,7 @@ class GL4Shader extends PShader {
     useGeomStage = false;
   }
 
-  void setup() {
+  public void setup() {
     boolean compiled;
 
     if (useTessStage) {
@@ -90,7 +90,7 @@ class GL4Shader extends PShader {
     }
   }
 
-  void draw(int idxId, int count, int offset) {
+  public void draw(int idxId, int count, int offset) {
     if (useTessStage) {
       GL4 gl4 = ((PJOGL)pgl).gl.getGL4();
       gl4.glPatchParameteri(GL4.GL_PATCH_VERTICES, 3);      
@@ -103,4 +103,3 @@ class GL4Shader extends PShader {
     }
   }
 }
-
