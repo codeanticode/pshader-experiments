@@ -19,7 +19,8 @@ PShape grid;
 Scene scene;
 
 void settings() {
-  size(640, 360, P3D);
+  fullScreen(P3D);
+  //size(640, 360, P3D);
   PJOGL.profile = 4;
 }
 
